@@ -1,45 +1,50 @@
+import React from "react"
 import Link from "next/link"
-import CategoriesList from "./CategoriesList"
+
+import FaArrowUp from "react-icons/lib/fa/arrow-up"
+import FaArrowDown from "react-icons/lib/fa/arrow-down"
+import FaStar from "react-icons/lib/fa/star"
+import FaDownload from "react-icons/lib/fa/download"
 
 const FilterMenu = () => (
   <div className="filterNav">
-    <span> Search Resources </span>
-    <input />
-    <h5>Categories</h5>
-    <select />
-    <h5>Subcategories</h5>
-    <select id="subcategories">
-      <option value="volvo">Action Reducer Generators</option>
-      <option value="actions">actions</option>
-      <option value="actions">apps and examples</option>
-      <option value="actions">component data fetching preloading</option>
-    </select>
+    <ul>
+      <div className="header">Sort:</div>
+      <li>
+        <label>
+          <input type="checkbox" />
+          npm <FaDownload />
+        </label>
+      </li>
+      <li>
+        <label>
+          <input type="checkbox" />
+          Github <FaStar />
+        </label>
+      </li>
+    </ul>
     <style jsx>{`
+      li {
+        padding: 10px 0;
+      }
+
       .filterNav {
-        margin: 10px 25px;
-        height: 100%;
-        width: 15%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        padding-top: 5%;
+        grid-row: 2;
+        font-size: 1.2rem;
+        font-weight: 300;
+        top: 25px;
+        position: -webkit-sticky;
+        position: sticky;
+        box-sizing: border-box;
+        height: 100vh;
       }
 
-      h5 {
-        margin-bottom: 3px;
+      input[type="checkbox"] {
+        padding: 1.5rem;
+        margin-right: 5px;
       }
 
-      select {
-        padding-top: 10px;
-        width: 100%;
-      }
-
-      input {
-        width: 100%;
-      }
-
-      ul li {
+      ul {
         list-style: none;
         margin: 0;
       }

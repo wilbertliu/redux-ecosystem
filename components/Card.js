@@ -18,8 +18,10 @@ const Card = ({ link }) => {
       <a target="blank" href={link.link}>
         <div className="card-header">{link.title}</div>
         <div className="line-seperator" />
-        <div className="card-description">{formatDescr(link.description)}</div>
-        <div className="card-date">1/15/18</div>
+        <div className="card-description">
+          {link.description ? formatDescr(link.description) : ""}
+        </div>
+        <div className="card-date">Last Updated: 1/15/18</div>
         <div className="card-stats">
           <FaStar color={"#4183c4"} size={15} /> <span> 13 </span>
           <FaDownload color={"#4183c4"} size={15} /> <span> 250 </span>
@@ -85,6 +87,7 @@ const Card = ({ link }) => {
 
         .card-date {
           position: absolute;
+          color: #4183c4;
           padding: 10px 17px;
           font-size: 0.9rem;
           font-weight: 100;

@@ -3,21 +3,10 @@ import FaArrowDown from "react-icons/lib/fa/arrow-down"
 import FaStar from "react-icons/lib/fa/star"
 import FaDownload from "react-icons/lib/fa/download"
 
-const SortMenu = () => {
+const MainHeader = ({ header }) => {
   return (
     <ul className="sort-container">
-      <span className="sort label"> Sort By: </span>
-      <span className="buttons">
-        <li className="sort-button">
-          <FaArrowUp size={14} /> NPM <FaDownload size={12} /> /mo
-        </li>
-        <li className="sort-button">
-          <FaArrowUp size={14} /> Last Updated{" "}
-        </li>
-        <li className="sort-button">
-          <FaArrowDown size={14} /> Github <FaStar size={12} />
-        </li>
-      </span>
+      <div className="header"> {header} </div>
       <input placeholder="Search..." />
       <style jsx>{`
         ul {
@@ -27,28 +16,16 @@ const SortMenu = () => {
           padding: 0;
         }
 
-        .buttons {
-          flex: 1;
-          display: flex;
-        }
-
-        li:not(.label) {
-          font-weight: 200;
-          margin-left: 5px;
-        }
-
-        .label {
-          margin-right: 5px;
-        }
-
-        .sort-button {
-          padding: 5px;
-          cursor: pointer;
+        .header {
+          font-size: 1.8rem;
+          font-weight: 400;
+          letter-spacing: 3px;
         }
 
         input {
           height: 2.4rem;
-          flex: 0.5;
+          margin-left: auto;
+          width: 30%;
           box-sizing: border-box;
           padding: 0.5rem;
           color: #0a0a0a;
@@ -74,4 +51,4 @@ const SortMenu = () => {
   )
 }
 
-export default SortMenu
+export default MainHeader

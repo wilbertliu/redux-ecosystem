@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-const Header = () => (
+const MainNav = () => (
   <div>
     <h2>Redux Ecosystem Links</h2>
     <Link href="/">
@@ -8,9 +8,6 @@ const Header = () => (
     </Link>
     <Link href="/about">
       <a>About</a>
-    </Link>
-    <Link href="/">
-      <a>Submit</a>
     </Link>
     <style jsx>{`
       a {
@@ -40,4 +37,4 @@ const Header = () => (
   </div>
 )
 
-export default Header
+export default MainNav

@@ -26,9 +26,9 @@ const List = ({ subjects }) => (
     <style jsx>{`
       div {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-auto-rows: 200px;
-        grid-column-gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+        grid-auto-rows: 250px;
+        grid-column-gap: 20px;
         grid-row-gap: 0.6em;
       }
     `}</style>
@@ -36,7 +36,7 @@ const List = ({ subjects }) => (
 )
 
 const Topics = ({ subjects }) => (
-  <Layout>
+  <Layout header={formatString(subjects.subject)}>
     <List subjects={subjects} />
   </Layout>
 )
