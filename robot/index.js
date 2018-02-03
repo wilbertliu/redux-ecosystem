@@ -4,12 +4,15 @@
   const fs = require('fs')
   const targetAPIUrl =
     'https://api.github.com/repos/markerikson/redux-ecosystem-links/contents'
+  const githubToken = '46d80ae8ba74c266fbd8ffd88e8ee5a4369928c4'
   const path = require('path')
   const databaseFile = path.join(__dirname, '../database.json')
 
   // Fetch the target API.
   console.log('Fetching', targetAPIUrl)
-  const result = await fetch(targetAPIUrl)
+  const result = await fetch(targetAPIUrl, {
+    headers: { Authorization: 'token ' + githubToken }
+  })
   const json = await result.json()
   console.log('Got the JSON')
 
@@ -44,7 +47,6 @@
     return (a.name > b.name) - (a.name < b.name)
   })
 
-  // TODO: Add OAuth authentication for GitHub API.
   // TODO: Get GitHub star data.
   // TODO: Get NPM download per month data.
 
