@@ -1,13 +1,11 @@
 ;(async function() {
   const fetch = require('node-fetch')
+  const parser = require('./parser')
+  const fs = require('fs')
   const targetAPIUrl =
     'https://api.github.com/repos/markerikson/redux-ecosystem-links/contents'
-  const fs = require('fs')
-  const util = require('util')
-  const mkdir = util.promisify(fs.mkdir)
-  const writeFile = util.promisify(fs.writeFile)
-  const unlink = util.promisify(fs.unlink)
-  const rmdir = util.promisify(fs.rmdir)
+  const path = require('path')
+  const databaseFile = path.join(__dirname, '../database.json')
 
   // Fetch the target API.
   console.log('Fetching', targetAPIUrl)
@@ -15,11 +13,8 @@
   const json = await result.json()
   console.log('Got the JSON')
 
-  // Create markdown folder to put downloaded markdown files.
-  console.log('Creating markdown folder')
-  await mkdir('markdown')
-  console.log('Markdown folder created')
-
+  // Download markdown files, parse the ast, and put to appropriate data structure.
+  let jsonResult = { categories: [], last_update: new Date() }
   await Promise.all(
     json.map(content => {
       return (async function() {
@@ -34,36 +29,36 @@
           const text = await result.text()
           console.log('Download', content.name, 'succeed')
 
-          // Create a markdown file inside the markdown folder.
-          console.log('Creating file', content.name)
-          await writeFile('markdown/' + content.name, text)
-          console.log('File', content.name, 'created')
+          // Parsing the markdown file.
+          console.log('Parsing', content.name)
+          const parsedObject = parser.parseMarkdown(text)
+          jsonResult.categories.push(parsedObject)
+          console.log('Parsing', content.name, 'succeed')
         }
       })()
     })
   )
 
-  // TODO: Parse markdown files to create JSON database.
+  // Sort categories by name alphabetically.
+  jsonResult.categories.sort((a, b) => {
+    return (a.name > b.name) - (a.name < b.name)
+  })
 
-  // Delete processed markdown files and folder.
-  await Promise.all(
-    json.map(content => {
-      return (async function() {
-        if (
-          content.type === 'file' &&
-          content.name.split('.').pop() === 'md' &&
-          content.name !== 'README.md'
-        ) {
-          console.log('Deleting file', content.name)
-          await unlink('markdown/' + content.name)
-          console.log('File', content.name, 'deleted')
-        }
-      })()
-    })
-  )
-  console.log('Deleting markdown folder')
-  await rmdir('markdown')
-  console.log('Markdown folder deleted')
+  // TODO: Add OAuth authentication for GitHub API.
+  // TODO: Get GitHub star data.
+  // TODO: Get NPM download per month data.
+
+  // Convert JSON to pretty string.
+  const jsonString = JSON.stringify(jsonResult, null, 2)
+
+  // Save JSON result in sync because no other instructions
+  // that need to run in parallel.
+  if (fs.existsSync(databaseFile)) {
+    fs.truncateSync(databaseFile, 0)
+  }
+  console.log('Saving JSON object to', databaseFile)
+  fs.writeFileSync(databaseFile, jsonString)
+  console.log('Saving', databaseFile, 'succeed')
 
   console.log('Robot has done its job')
 })()
