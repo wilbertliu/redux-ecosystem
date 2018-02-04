@@ -21,7 +21,9 @@ const Card = ({ link }) => {
         <div className="card-description">
           {link.description ? formatDescr(link.description) : ""}
         </div>
-        <div className="card-date">Last Updated: 1/15/18</div>
+        <div className="card-date">
+          Last Updated: <span>1/15/18</span>
+        </div>
         <div className="card-stats">
           <FaStar color={"#4183c4"} size={15} /> <span> 13 </span>
           <FaDownload color={"#4183c4"} size={15} /> <span> 250 </span>
@@ -93,6 +95,10 @@ const Card = ({ link }) => {
           font-weight: 100;
           bottom: 0;
           left: 0;
+        }
+
+        .card-date span {
+          color: black;
         }
       `}</style>
     </div>

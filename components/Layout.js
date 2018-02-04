@@ -27,15 +27,24 @@ const Layout = props => (
         font-family: Lato, sans-serif;
       }
 
+      :root {
+        --redux: #4183c4;
+      }
+
       .wrapper {
-        display: grid;
-        grid-template-columns: 1fr 75% 10%;
-        grid-template-rows: 30px 1fr;
         height: 100%;
         position: relative;
+        display: grid;
+        grid-template-columns: repeat(12, [col-start] 1fr);
+        grid-gap: 20px;
+      }
+
+      .wrapper > * {
+        grid-column: col-start / span 12;
       }
 
       .main {
+        grid-column: col-start 3 / span 9;
         grid-row: 2;
         padding: 5px 20px;
         box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 15px;

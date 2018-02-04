@@ -5,7 +5,7 @@ import fetch from "isomorphic-unfetch"
 const PostLink = ({ subject }) => (
   <div>
     <Link
-      as={`/t/${subject.subject}/${subject.contents}`}
+      as={`/${subject.subject}/${subject.contents}`}
       href={`/topics?title=${subject.subject}&contents=${subject.contents}`}
     >
       <li>
@@ -17,7 +17,7 @@ const PostLink = ({ subject }) => (
         list-style: none;
         margin: 5px 0;
         padding: 1.4rem;
-        border: 1px solid lightgrey;
+        border: 1px solid rgb(211, 211, 211);
       }
 
       a {

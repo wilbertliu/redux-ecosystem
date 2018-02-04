@@ -6,7 +6,7 @@ import FaDownload from "react-icons/lib/fa/download"
 const MainHeader = ({ header }) => {
   return (
     <ul className="sort-container">
-      <div className="header"> {header} </div>
+      <div className="header"> {header || "All Categories"} </div>
       <input placeholder="Search..." />
       <style jsx>{`
         ul {

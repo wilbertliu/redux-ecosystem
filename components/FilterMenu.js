@@ -30,6 +30,8 @@ const FilterMenu = () => (
 
       .filterNav {
         grid-row: 2;
+        grid-column: col-start / span 2;
+        margin: 0 auto;
         font-size: 1.2rem;
         font-weight: 300;
         top: 25px;

@@ -2,7 +2,11 @@ import Link from "next/link"
 
 const MainNav = () => (
   <div>
-    <h2>Redux Ecosystem Links</h2>
+    <Link href="/">
+      <a id="logo">
+        <h2>Redux Ecosystem Links</h2>
+      </a>
+    </Link>
     <Link href="/">
       <a>Home</a>
     </Link>
@@ -17,7 +21,7 @@ const MainNav = () => (
         display: inline;
       }
 
-      a:hover {
+      a:not(#logo):hover {
         opacity: 0.6;
       }
 
