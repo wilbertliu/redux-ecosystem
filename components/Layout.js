@@ -12,8 +12,8 @@ const Layout = props => (
         rel="stylesheet"
       />
     </Head>
-    <MainNav />
     <div className="wrapper">
+      <MainNav />
       <SortMenu topics={props.subTopics} />
       <div className="main">
         <MainHeader header={props.header} />
@@ -33,7 +33,6 @@ const Layout = props => (
 
       .wrapper {
         height: 100%;
-        position: relative;
         display: grid;
         grid-template-columns: repeat(12, [col-start] 1fr);
         grid-gap: 20px;
@@ -47,7 +46,7 @@ const Layout = props => (
         grid-column: col-start 3 / span 9;
         grid-row: 2;
         padding: 5px 20px;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.18);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
         background-color: #eff1f3;
       }
     `}</style>

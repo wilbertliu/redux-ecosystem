@@ -50,20 +50,20 @@ const SortMenu = ({ topics }) => (
       <li>
         <label>
           <input type="checkbox" />
-          npm
-          <span className="icon">
-            <FaDownload />
-          </span>
+          NPM
         </label>
+        <div className="icon">
+          <FaDownload />
+        </div>
       </li>
       <li>
         <label>
           <input type="checkbox" />
-          Github
-          <div className="icon">
-            <FaStar />
-          </div>
+          GitHub
         </label>
+        <div className="icon">
+          <FaStar />
+        </div>
       </li>
     </ul>
     {topics ? <SubTopicMenu topics={topics} /> : null}
@@ -77,22 +77,31 @@ const SortMenu = ({ topics }) => (
         position: -webkit-sticky;
         position: sticky;
         box-sizing: border-box;
-        height: 100vh;
+        height: 35vh;
 
         display: flex;
         flex-direction: column;
         align-items: flex-start;
       }
 
-      .icon {
-        justify-self: flex-end;
-        display: inline-block;
-        margin-left: auto;
+      input[type="checkbox"] {
+        border: solid;
+        border-radius: 4px;
+        border-color: var(--redux);
+
+        width: 15px;
+        height: 15px;
       }
 
-      input[type="checkbox"] {
-        padding: 1.5rem;
-        margin-right: 5px;
+      li {
+        padding: 5px 0px;
+        display: flex;
+        align-items: flex-start;
+        margin: 3px 0;
+      }
+
+      .icon {
+        margin-left: auto;
       }
 
       ul {
@@ -100,6 +109,7 @@ const SortMenu = ({ topics }) => (
         margin: 0;
         padding: 15px;
         flex: 3;
+        width: 80%;
       }
     `}</style>
   </div>

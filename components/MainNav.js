@@ -27,8 +27,8 @@ const MainNav = () => (
 
       div {
         padding: 15px;
-        z-index: 5;
-        position: relative;
+        z-index: 1;
+        width: 100%;
         box-shadow: 0 1px 0 #4d4d4d inset, 0 2px 3px rgba(0, 0, 0, 0.25);
         background: #343a40;
       }
