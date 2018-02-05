@@ -1,7 +1,7 @@
 import Head from "next/head"
 
 import MainNav from "./MainNav"
-import FilterMenu from "./FilterMenu"
+import SortMenu from "./SortMenu"
 import MainHeader from "./MainHeader"
 
 const Layout = props => (
@@ -14,7 +14,7 @@ const Layout = props => (
     </Head>
     <MainNav />
     <div className="wrapper">
-      <FilterMenu />
+      <SortMenu topics={props.subTopics} />
       <div className="main">
         <MainHeader header={props.header} />
         {props.children}
@@ -47,7 +47,7 @@ const Layout = props => (
         grid-column: col-start 3 / span 9;
         grid-row: 2;
         padding: 5px 20px;
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 15px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.18);
         background-color: #eff1f3;
       }
     `}</style>

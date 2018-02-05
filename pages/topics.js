@@ -32,8 +32,8 @@ const Section = ({ resource }) => {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
           grid-auto-rows: 250px;
-          grid-column-gap: 20px;
-          grid-row-gap: 0.6em;
+          grid-column-gap: 15px;
+          grid-row-gap: 15px;
           margin: 20px 0;
         }
 
@@ -43,7 +43,7 @@ const Section = ({ resource }) => {
           font-weight: 600;
           letter-spacing: 1px;
           text-decoration: none;
-          padding: 10px;
+          padding: 10px 0;
           color: var(--redux);
         }
       `}</style>
@@ -60,7 +60,10 @@ const List = ({ subjects }) => (
 )
 
 const Topics = ({ subjects }) => (
-  <Layout header={formatString(subjects.subject)}>
+  <Layout
+    subTopics={subjects.content.map(resource => resource.topic)}
+    header={formatString(subjects.subject)}
+  >
     <List subjects={subjects} />
   </Layout>
 )

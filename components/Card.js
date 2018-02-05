@@ -60,7 +60,7 @@ const Card = ({ link }) => {
 
         .line-seperator {
           margin: 2px 0 5px 10px;
-          background-color: #4183c4;
+          background-color: var(--redux);
           height: 1px;
           width: 45%;
         }
@@ -89,7 +89,7 @@ const Card = ({ link }) => {
 
         .card-date {
           position: absolute;
-          color: #4183c4;
+          color: var(--redux);
           padding: 10px 17px;
           font-size: 0.9rem;
           font-weight: 100;
