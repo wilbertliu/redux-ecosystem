@@ -57,5 +57,6 @@ typings/
 # dotenv environment variables file
 .env
 
-# JSON output
+# Project specific
 database.json
+category-content-error.log
