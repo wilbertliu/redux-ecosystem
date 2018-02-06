@@ -21,9 +21,9 @@ function checkCategory(fileName, markdownText) {
     token => token[0] === 'header' && token[1].level === 3
   )
   if (h3Tokens.length > 1) {
-    errors.push('<h3> appears more than once.')
+    errors.push('`<h3>` appears more than once.')
   } else if (h3Tokens.length < 1) {
-    errors.push('<h3> does not exist.')
+    errors.push('`<h3>` does not exist.')
   }
 
   // Check every <h4> should be followed by list repos.
@@ -33,7 +33,7 @@ function checkCategory(fileName, markdownText) {
         index + 1 === ast.length ||
         (index + 1 < ast.length && ast[index + 1][0] !== 'bulletlist')
       ) {
-        errors.push('<h4> is not followed by repositories.')
+        errors.push('`<h4>` is not followed by repositories.')
       } else {
         const subcategory = token[2]
 
