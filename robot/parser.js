@@ -58,7 +58,7 @@ exports.parseMarkdown = text => {
       return {
         name: subcategory,
         repositories: repos[subcategoryIdx].map(repo => {
-          return { name: repo[0], url: repo[1], description: repo[2] }
+          return { name: repo[0], github_url: repo[1], description: repo[2] }
         })
       }
     })
