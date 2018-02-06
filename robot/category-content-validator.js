@@ -6,7 +6,7 @@ const githubToken = '46d80ae8ba74c266fbd8ffd88e8ee5a4369928c4'
 const path = require('path')
 const categoryContentErrorFile = path.join(
   __dirname,
-  '../category-content-error.log'
+  '../category-content-error.md'
 )
 const githubRepoRegex = /^https:\/\/github.com\/[^\s]+\/[^\s]+$/
 const ora = require('ora')
@@ -21,9 +21,9 @@ function checkCategory(fileName, markdownText) {
     token => token[0] === 'header' && token[1].level === 3
   )
   if (h3Tokens.length > 1) {
-    errors.push('<H3> appears more than once.')
+    errors.push('<h3> appears more than once.')
   } else if (h3Tokens.length < 1) {
-    errors.push('<H3> does not exist.')
+    errors.push('<h3> does not exist.')
   }
 
   // Check every <h4> should be followed by list repos.
@@ -33,7 +33,7 @@ function checkCategory(fileName, markdownText) {
         index + 1 === ast.length ||
         (index + 1 < ast.length && ast[index + 1][0] !== 'bulletlist')
       ) {
-        errors.push('<H4> is not followed by repositories.')
+        errors.push('<h4> is not followed by repositories.')
       } else {
         const subcategory = token[2]
 
@@ -135,7 +135,7 @@ function checkCategory(fileName, markdownText) {
   // Convert JSON to readable string.
   let reportString = ''
   problems.forEach((problem, index) => {
-    reportString += problem.file_name
+    reportString += '**' + problem.file_name + '**'
 
     reportString += problem.errors.reduce((previousValue, currentValue) => {
       return previousValue + '\n- ' + currentValue
