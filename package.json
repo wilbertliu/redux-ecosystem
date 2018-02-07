@@ -12,10 +12,10 @@
     "isomorphic-unfetch": "^2.0.0",
     "next": "^4.2.3",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-icons": "^2.2.7"
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
+    "react-icons": "^2.2.7",
     "prettier": "^1.10.2"
   },
   "scripts": {

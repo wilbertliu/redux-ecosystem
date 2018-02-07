@@ -25,7 +25,9 @@ const Section = ({ resource }) => {
         {resource.topic}
       </a>
       <div className="grid">
-        {resource.resources.map(link => <Card key={link.link} link={link} />)}
+        {resource.resources.map(link => (
+          <Card key={link.subject} link={link} />
+        ))}
       </div>
       <style jsx>{`
         .grid {

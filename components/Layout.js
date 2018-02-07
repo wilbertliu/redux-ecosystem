@@ -35,7 +35,7 @@ const Layout = props => (
         height: 100%;
         display: grid;
         grid-template-columns: repeat(12, [col-start] 1fr);
-        grid-gap: 20px;
+        grid-gap: 10px;
       }
 
       .wrapper > * {

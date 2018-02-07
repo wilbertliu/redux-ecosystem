@@ -9,7 +9,26 @@ const PostLink = ({ subject }) => (
       href={`/topics?title=${subject.subject}&contents=${subject.contents}`}
     >
       <li>
-        <a>{subject.subject.split("-").join(" ")}</a>
+        <a>
+          {subject.subject
+            .split("-")
+            .join(" ")
+            .toUpperCase()}{" "}
+        </a>
+        <span>
+          <a href="" className="sub-topic">
+            Utilities
+          </a>
+          <a href="" className="sub-topic">
+            Data Manipulation and Normalization
+          </a>
+          <a href="" className="sub-topic">
+            Selectors
+          </a>
+          <a href="" className="sub-topic">
+            Functional Programming
+          </a>
+        </span>
       </li>
     </Link>
     <style jsx>{`
@@ -20,6 +39,13 @@ const PostLink = ({ subject }) => (
         background: #fff;
         box-shadow: 0 1px 2px rgba(10, 10, 10, 0.1);
         transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+      }
+
+      .sub-topic {
+        margin: 0 10px;
+        color: var(--redux);
+        font-size: 0.9rem;
+        font-style: italic;
       }
 
       li:hover {

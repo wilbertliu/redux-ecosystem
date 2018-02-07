@@ -5,6 +5,27 @@ import FaArrowUp from "react-icons/lib/fa/arrow-up"
 import FaArrowDown from "react-icons/lib/fa/arrow-down"
 import FaStar from "react-icons/lib/fa/star"
 import FaDownload from "react-icons/lib/fa/download"
+import Dropdown from "./Dropdown"
+
+const categoryList = [
+  {
+    value: "action reducer generators",
+    label: "action reducer generators",
+    url: 7
+  },
+  { value: "actions", label: "actions", url: 10 },
+  { value: "apps and examples", label: "apps and examples", url: 12 }
+]
+
+const subList = [
+  {
+    value: "SubCat",
+    label: "SubCategory 1",
+    url: 7
+  },
+  { value: "SubTopc", label: "SubCategory 2", url: 10 },
+  { value: "Option 3", label: "Option 3", url: 12 }
+]
 
 const SubTopicMenu = ({ topics }) => (
   <div>
@@ -20,8 +41,10 @@ const SubTopicMenu = ({ topics }) => (
     </ul>
     <style jsx>{`
       div {
-        flex: 2;
-        padding: 15px;
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
       }
 
       a {
@@ -35,7 +58,8 @@ const SubTopicMenu = ({ topics }) => (
       }
 
       ul {
-        margin: 0;
+        margin: 0 10px;
+        align-self: flex-start;
         padding: 0;
         list-style: none;
       }
@@ -66,6 +90,7 @@ const SortMenu = ({ topics }) => (
         </div>
       </li>
     </ul>
+    <Dropdown topicOptions={subList} options={categoryList} />
     {topics ? <SubTopicMenu topics={topics} /> : null}
     <style jsx>{`
       .sortNav {
@@ -77,11 +102,10 @@ const SortMenu = ({ topics }) => (
         position: -webkit-sticky;
         position: sticky;
         box-sizing: border-box;
-        height: 35vh;
+        height: 80vh;
 
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
       }
 
       input[type="checkbox"] {
@@ -108,7 +132,6 @@ const SortMenu = ({ topics }) => (
         list-style: none;
         margin: 0;
         padding: 15px;
-        flex: 3;
         width: 80%;
       }
     `}</style>
