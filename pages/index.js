@@ -15,7 +15,7 @@ const PostLink = ({ subject }) => (
             .join(" ")
             .toUpperCase()}{" "}
         </a>
-        <span>
+        {/* <span>
           <a href="" className="sub-topic">
             Utilities
           </a>
@@ -28,7 +28,7 @@ const PostLink = ({ subject }) => (
           <a href="" className="sub-topic">
             Functional Programming
           </a>
-        </span>
+        </span> */}
       </li>
     </Link>
     <style jsx>{`

@@ -43,7 +43,8 @@ const Layout = props => (
       }
 
       .main {
-        grid-column: col-start 3 / span 9;
+        grid-column: col-start 3 / span 10;
+        margin: 0 10px 0 0;
         grid-row: 2;
         padding: 5px 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);

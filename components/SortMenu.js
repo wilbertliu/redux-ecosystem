@@ -5,75 +5,260 @@ import FaArrowUp from "react-icons/lib/fa/arrow-up"
 import FaArrowDown from "react-icons/lib/fa/arrow-down"
 import FaStar from "react-icons/lib/fa/star"
 import FaDownload from "react-icons/lib/fa/download"
-import Dropdown from "./Dropdown"
+import Dropdown from "./Dropdown/Dropdown"
 
+// Mock List for Menu
 const categoryList = [
   {
-    value: "action reducer generators",
-    label: "action reducer generators",
-    url: 7
+    subject: "ACTION REDUCER GENERATORS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
   },
-  { value: "actions", label: "actions", url: 10 },
-  { value: "apps and examples", label: "apps and examples", url: 12 }
-]
-
-const subList = [
   {
-    value: "SubCat",
-    label: "SubCategory 1",
-    url: 7
+    subject: "ACTIONS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
   },
-  { value: "SubTopc", label: "SubCategory 2", url: 10 },
-  { value: "Option 3", label: "Option 3", url: 12 }
+  {
+    subject: "APPS AND EXAMPLES",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "COMPONENT DATA FETCHING PRELOADING",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "COMPONENT STATE",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "DEVTOOLS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "ENTITY COLLECTION MANAGEMENT",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "FORMS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "IMMUTABLE DATA",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "LIBRARY INTEGRATION",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "MIDDLEWARE ASYNC",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "MIDDLEWARE NETWORK REQUESTS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "MIDDLEWARE SOCKETS ADAPTERS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "MIDDLEWARE",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "OTHER RESOURCES",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "PROJECT SCAFFOLDING",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "REDUCERS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "ROUTING",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "SIDE EFFECTS FUNCTIONS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "SIDE EFFECTS GENERATORS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "SIDE EFFECTS OBSERVABLES",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "SIDE EFFECTS OTHER",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "SIDE EFFECTS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "STORE PERSISTENCE",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "STORE",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "TESTING",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "USE CASES",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "UTILITIES",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "VARIATIONS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  },
+  {
+    subject: "WIDGETS",
+    subtopics: [
+      { label: "SubCategory" },
+      { label: "SubCategory 2" },
+      { label: "Option 3" }
+    ]
+  }
 ]
-
-const SubTopicMenu = ({ topics }) => (
-  <div>
-    <span className="header"> Go To Subtopic</span>
-    <ul>
-      {topics.map(topic => (
-        <li>
-          <a href={`#${topic}`} key={topic}>
-            {topic}
-          </a>
-        </li>
-      ))}
-    </ul>
-    <style jsx>{`
-      div {
-        margin-top: auto;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-      }
-
-      a {
-        text-decoration: none;
-        color: var(--redux);
-        font-size: 0.8rem;
-      }
-
-      header {
-        font-size: 1rem;
-      }
-
-      ul {
-        margin: 0 10px;
-        align-self: flex-start;
-        padding: 0;
-        list-style: none;
-      }
-    `}</style>
-  </div>
-)
 
 const SortMenu = ({ topics }) => (
   <div className="sortNav">
+    <Dropdown categories={categoryList} />
     <ul>
       <div className="header">Sort By</div>
       <li>
         <label>
-          <input type="checkbox" />
+          <input checked type="checkbox" />
           NPM
         </label>
         <div className="icon">
@@ -82,7 +267,7 @@ const SortMenu = ({ topics }) => (
       </li>
       <li>
         <label>
-          <input type="checkbox" />
+          <input checked type="checkbox" />
           GitHub
         </label>
         <div className="icon">
@@ -90,13 +275,11 @@ const SortMenu = ({ topics }) => (
         </div>
       </li>
     </ul>
-    <Dropdown topicOptions={subList} options={categoryList} />
-    {topics ? <SubTopicMenu topics={topics} /> : null}
     <style jsx>{`
       .sortNav {
         grid-row: 2;
         grid-column: col-start / span 2;
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 300;
         top: 25px;
         position: -webkit-sticky;
@@ -131,6 +314,7 @@ const SortMenu = ({ topics }) => (
       ul {
         list-style: none;
         margin: 0;
+        margin-top: auto;
         padding: 15px;
         width: 80%;
       }
