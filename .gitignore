@@ -61,3 +61,10 @@ typings/
 
 # dotenv environment variables file
 .env
+<<<<<<< HEAD
+=======
+
+# Project specific
+database.json
+category-content-error.md
+>>>>>>> wilbertliu/master
