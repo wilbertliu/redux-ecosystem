@@ -12,14 +12,6 @@ const formatDescr = str => {
 }
 
 const sortByNPM = (a, b) => {
-  return b["npm_download_since_last_month"] - a["npm_download_since_last_month"]
-}
-
-const sortByGithub = (a, b) => {
-  return b["github_star"] - a["github_star"]
-}
-
-const sortByDefault = (a, b) => {
   const aNPM = a.npm_download_since_last_month
     ? a.npm_download_since_last_month
     : 0
@@ -27,17 +19,33 @@ const sortByDefault = (a, b) => {
     ? b.npm_download_since_last_month
     : 0
 
-  if (bNPM > aNPM) {
+  return bNPM - aNPM
+}
+
+const sortByGithub = (a, b) => {
+  return b["github_star"] - a["github_star"]
+}
+
+const sortByDefault = (a, b) => {
+  const aSortValue =
+    a.npm_download_since_last_month > a.github_star
+      ? a.npm_download_since_last_month
+      : a.github_star
+
+  const bSortValue =
+    b.npm_download_since_last_month > b.github_star
+      ? b.npm_download_since_last_month
+      : b.github_star
+
+  if (aSortValue == bSortValue) {
+    return 0
+  }
+
+  if (bSortValue > aSortValue) {
     return 1
-  } else if (bNPM < aNPM) {
+  } else {
     return -1
   }
-
-  if (!aNPM || !bNPM) {
-    return b.github_star - a.github_star
-  }
-
-  return -1
 }
 
 const Section = ({ resource }) => {

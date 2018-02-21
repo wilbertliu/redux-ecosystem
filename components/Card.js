@@ -17,11 +17,11 @@ const formatDate = date => {
   return formattedDate[0]
 }
 
-const NpmStatsComponent = ({ downloads }) => {
+const NpmComponent = ({ downloads }) => {
   return (
     <Fragment>
       <FaDownload color={"#4183c4"} size={15} />
-      <span> {downloads} </span>
+      <span> {downloads.toLocaleString()} </span>
       <style jsx>{`
         span {
           margin-left: 2px;
@@ -32,11 +32,11 @@ const NpmStatsComponent = ({ downloads }) => {
   )
 }
 
-const GitHubStarsComponent = ({ stars }) => {
+const GitHubStars = ({ stars }) => {
   return (
     <Fragment>
       <FaStar color={"#4183c4"} size={15} />
-      <span> {stars} </span>
+      <span> {stars.toLocaleString()} </span>
       <style jsx>{`
         span {
           margin-left: 2px;
@@ -47,7 +47,7 @@ const GitHubStarsComponent = ({ stars }) => {
   )
 }
 
-const GitHubDateComponent = ({ date }) => {
+const GitHubDate = ({ date }) => {
   return (
     <Fragment>
       Updated: <span> {formatDate(date)}</span>
@@ -63,17 +63,15 @@ const GitHubDateComponent = ({ date }) => {
 }
 
 const Card = ({ repo }) => {
-  const npmStats = repo.npm_download_since_last_month ? (
-    <NpmStatsComponent downloads={repo.npm_download_since_last_month} />
+  const downloads = repo.npm_download_since_last_month ? (
+    <NpmComponent downloads={repo.npm_download_since_last_month} />
   ) : null
 
-  const githubStars =
-    repo.github_star > 2 ? (
-      <GitHubStarsComponent stars={repo.github_star} />
-    ) : null
+  const stars =
+    repo.github_star > 2 ? <GitHubStars stars={repo.github_star} /> : null
 
   const githubDate = repo.github_last_update ? (
-    <GitHubDateComponent date={repo.github_last_update} />
+    <GitHubDate date={repo.github_last_update} />
   ) : null
 
   return (
@@ -86,8 +84,8 @@ const Card = ({ repo }) => {
         </div>
         <div className="card-date">{githubDate}</div>
         <div className="card-stats">
-          {githubStars}
-          {npmStats}
+          {stars}
+          {downloads}
         </div>
       </a>
       <style jsx>{`
