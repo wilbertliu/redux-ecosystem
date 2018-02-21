@@ -24,7 +24,7 @@
     "prettier": "^1.10.2"
   },
   "scripts": {
-    "dev": "PORT=3000 node server.js",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start"
   }

@@ -7,6 +7,7 @@ import MainHeader from "./MainHeader"
 const Layout = props => (
   <div>
     <Head>
+      <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
       <link
         href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,700"
         rel="stylesheet"

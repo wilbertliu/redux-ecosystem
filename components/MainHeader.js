@@ -7,7 +7,6 @@ const MainHeader = ({ header }) => {
   return (
     <ul className="sort-container">
       <div className="header"> {header || "All Categories"} </div>
-      <input placeholder="Search..." />
       <style jsx>{`
         ul {
           display: flex;

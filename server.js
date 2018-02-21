@@ -1,5 +1,6 @@
 const express = require("express")
 const next = require("next")
+const database = require("./database.json")
 
 const dev = process.env.NODE_ENV !== "production"
 const app = next({ dev })
@@ -10,9 +11,24 @@ app
   .then(() => {
     const server = express()
 
-    server.get("/:id/:url", (req, res) => {
-      const actualPage = "/topics"
-      const queryParams = { contents: req.params.url, id: req.params.url }
+    server.get("/topics.json", function(req, res) {
+      const topics = database.categories.map(topics => topics.name)
+
+      res.send(topics)
+    })
+
+    server.get("/name.json/:name", function(req, res) {
+      const category = database.categories.filter(
+        category => category.name == req.params.name
+      )
+
+      res.send(category[0])
+    })
+
+    server.get("/:name", (req, res) => {
+      const actualPage = "/topic"
+      const queryParams = { name: req.params.name }
+
       app.render(req, res, actualPage, queryParams)
     })
 
@@ -20,7 +36,7 @@ app
       return handle(req, res)
     })
 
-    server.listen(3001, err => {
+    server.listen(3000, err => {
       if (err) throw err
       console.log("> Ready on http://localhost:3000")
     })

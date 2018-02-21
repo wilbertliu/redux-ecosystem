@@ -2,33 +2,15 @@ import Layout from "../components/Layout"
 import Link from "next/link"
 import fetch from "isomorphic-unfetch"
 
-const PostLink = ({ subject }) => (
+const formatString = str => {
+  return str.replace(/[\s+//]/g, "")
+}
+
+const PostLink = ({ category }) => (
   <div>
-    <Link
-      as={`/${subject.subject}/${subject.contents}`}
-      href={`/topics?title=${subject.subject}&contents=${subject.contents}`}
-    >
+    <Link as={`/${category}`} href={`/topic?name=${category}`}>
       <li>
-        <a>
-          {subject.subject
-            .split("-")
-            .join(" ")
-            .toUpperCase()}{" "}
-        </a>
-        {/* <span>
-          <a href="" className="sub-topic">
-            Utilities
-          </a>
-          <a href="" className="sub-topic">
-            Data Manipulation and Normalization
-          </a>
-          <a href="" className="sub-topic">
-            Selectors
-          </a>
-          <a href="" className="sub-topic">
-            Functional Programming
-          </a>
-        </span> */}
+        <a>{category}</a>
       </li>
     </Link>
     <style jsx>{`
@@ -64,13 +46,9 @@ const PostLink = ({ subject }) => (
   </div>
 )
 
-const Index = ({ links }) => (
+const Index = ({ topics }) => (
   <Layout>
-    <ul>
-      {links.subjects.map(subject => (
-        <PostLink key={subject.contents} subject={subject} />
-      ))}
-    </ul>
+    <ul>{topics.map(category => <PostLink category={category} />)}</ul>
     <style jsx>{`
       ul {
         padding: 0;
@@ -86,10 +64,9 @@ const Index = ({ links }) => (
 )
 
 Index.getInitialProps = async function() {
-  const res = await fetch(`http://localhost:3000`)
-  const links = await res.json()
-
-  return { links }
+  const res = await fetch(`http://localhost:3000/topics.json`)
+  const topics = await res.json()
+  return { topics }
 }
 
 export default Index

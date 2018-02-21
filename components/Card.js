@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import Link from "next/link"
 import FaGithub from "react-icons/lib/fa/github"
 import FaStar from "react-icons/lib/fa/star"
@@ -12,21 +12,82 @@ const formatDescr = str => {
   }
 }
 
-const Card = ({ link }) => {
+const formatDate = date => {
+  const formattedDate = date.split("T")
+  return formattedDate[0]
+}
+
+const NpmStatsComponent = ({ downloads }) => {
+  return (
+    <Fragment>
+      <FaDownload color={"#4183c4"} size={15} />
+      <span> {downloads} </span>
+      <style jsx>{`
+        span {
+          margin-left: 2px;
+          font-size: 0.9rem;
+        }
+      `}</style>
+    </Fragment>
+  )
+}
+
+const GitHubStarsComponent = ({ stars }) => {
+  return (
+    <Fragment>
+      <FaStar color={"#4183c4"} size={15} />
+      <span> {stars} </span>
+      <style jsx>{`
+        span {
+          margin-left: 2px;
+          font-size: 0.9rem;
+        }
+      `}</style>
+    </Fragment>
+  )
+}
+
+const GitHubDateComponent = ({ date }) => {
+  return (
+    <Fragment>
+      Updated: <span> {formatDate(date)}</span>
+      <style jsx>{`
+        span {
+          color: black;
+          margin-left: 2px;
+          font-size: 0.9rem;
+        }
+      `}</style>
+    </Fragment>
+  )
+}
+
+const Card = ({ repo }) => {
+  const npmStats = repo.npm_download_since_last_month ? (
+    <NpmStatsComponent downloads={repo.npm_download_since_last_month} />
+  ) : null
+
+  const githubStars =
+    repo.github_star > 2 ? (
+      <GitHubStarsComponent stars={repo.github_star} />
+    ) : null
+
+  const githubDate = repo.github_last_update ? (
+    <GitHubDateComponent date={repo.github_last_update} />
+  ) : null
+
   return (
     <div className="card-wrapper">
-      <a target="blank" href={link.link}>
-        <div className="card-header">{link.title}</div>
+      <a target="blank" href={repo.github_url}>
+        <div className="card-header">{repo.name}</div>
         <div className="line-seperator" />
         <div className="card-description">
-          {link.description ? formatDescr(link.description) : ""}
+          {repo.description ? formatDescr(repo.description) : ""}
         </div>
-        <div className="card-date">
-          Last Updated: <span>1/15/18</span>
-        </div>
+        <div className="card-date">{githubDate}</div>
         <div className="card-stats">
-          <FaStar color={"#4183c4"} size={15} /> <span> 13 </span>
-          <FaDownload color={"#4183c4"} size={15} /> <span> 250 </span>
+          {githubStars}
+          {npmStats}
         </div>
       </a>
       <style jsx>{`
