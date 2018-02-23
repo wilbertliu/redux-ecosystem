@@ -4,24 +4,28 @@ import Category from "./Category"
 const Dropdown = ({ categories }) => {
   return (
     <Fragment>
+      <div>Categories:</div>
       <ul>
-        <li> Categories: </li>
-        {categories.map(category => <Category category={category} />)}
-        <style jsx>{`
-          ul {
-            align-self: flex-start;
-            padding: 0;
-            margin: 10px auto;
-
-            overflow: scroll;
-          }
-
-          li {
-            margin-bottom: 3px;
-            font-weight: 400;
-          }
-        `}</style>
+        {categories.map(category => (
+          <Category key={category.name} category={category} />
+        ))}
       </ul>
+      <style jsx>{`
+        div {
+          margin: 0 auto;
+          margin-left: 10px;
+        }
+
+        ul {
+          margin: 10px auto;
+          overflow: scroll;
+        }
+
+        li {
+          margin-bottom: 3px;
+          font-weight: 400;
+        }
+      `}</style>
     </Fragment>
   )
 }

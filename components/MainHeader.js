@@ -10,7 +10,6 @@ const MainHeader = ({ header }) => {
       <style jsx>{`
         ul {
           display: flex;
-          list-style: none;
           align-items: center;
           padding: 0;
         }

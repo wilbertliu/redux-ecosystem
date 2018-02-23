@@ -141,11 +141,6 @@ const Card = ({ repo }) => {
           right: 0;
         }
 
-        span {
-          margin-left: 2px;
-          font-size: 0.9rem;
-        }
-
         .card-date {
           position: absolute;
           color: var(--redux);

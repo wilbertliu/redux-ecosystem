@@ -1,13 +1,20 @@
 import React from "react"
 import Link from "next/link"
 
-const SubCategory = ({ topic }) => (
+const SubCategory = ({ category, subcategory }) => (
   <li>
-    <Link>
-      <a href={topic.label}>{topic.label}</a>
+    <Link
+      as={`/${category}/${subcategory.name}`}
+      href={`/subcategory?name=${category}&subcategory=${subcategory.name}`}
+    >
+      <a>
+        {subcategory.name} ({subcategory.repositories.length})
+      </a>
     </Link>
+
     <style jsx>{`
       li {
+        list-style-type: disk;
         display: flex;
         flex-direction: column;
       }

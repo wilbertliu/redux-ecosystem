@@ -15,7 +15,7 @@ const Layout = props => (
     </Head>
     <div className="wrapper">
       <MainNav />
-      <SortMenu topics={props.subTopics} />
+      <SortMenu topics={props.topics} />
       <div className="main">
         <MainHeader header={props.header} />
         {props.children}

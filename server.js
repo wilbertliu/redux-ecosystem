@@ -17,7 +17,7 @@ app
       res.send(topics)
     })
 
-    server.get("/name.json/:name", function(req, res) {
+    server.get("/category.json/:name", function(req, res) {
       const category = database.categories.filter(
         category => category.name == req.params.name
       )
@@ -25,9 +25,31 @@ app
       res.send(category[0])
     })
 
+    server.get("/subcategory.json/:category/:subcategory", function(req, res) {
+      const category = database.categories.filter(
+        category => category.name == req.params.category
+      )
+
+      const subcategory = category[0].subcategories.filter(
+        subcategory => subcategory.name == req.params.subcategory
+      )
+
+      res.send(subcategory[0])
+    })
+
     server.get("/:name", (req, res) => {
       const actualPage = "/topic"
       const queryParams = { name: req.params.name }
+
+      app.render(req, res, actualPage, queryParams)
+    })
+
+    server.get("/:name/:subcategory", (req, res) => {
+      const actualPage = "/subcategory"
+      const queryParams = {
+        name: req.params.name,
+        subcategory: req.params.subcategory
+      }
 
       app.render(req, res, actualPage, queryParams)
     })

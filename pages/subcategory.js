@@ -46,14 +46,14 @@ const sortByDefault = (a, b) => {
   return 0
 }
 
-const Section = ({ resource }) => {
-  const sortedList = resource.repositories
-    .sort(sortByDefault)
-    .map(repo => <Card key={repo.description} repo={repo} />)
+const Section = ({ subcategory }) => {
+  const sortedList = subcategory.repositories.map(repo => (
+    <Card key={repo.description} repo={repo} />
+  ))
   return (
-    <span id={resource.name}>
-      <a className="topic-header" href={`#${resource.name}`}>
-        {resource.name}
+    <span id={subcategory.name}>
+      <a className="topic-header" href={`#${subcategory.name}`}>
+        {subcategory.name}
       </a>
       <div className="grid">{sortedList}</div>
       <style jsx>{`
@@ -80,27 +80,30 @@ const Section = ({ resource }) => {
   )
 }
 
-const List = ({ subjects }) => (
+const List = ({ subcategory }) => (
   <div>
-    {subjects.subcategories.map(repository => (
-      <Section key={repository.name} resource={repository} />
+    {subcategory.repositories.map(repository => (
+      <Section key={repository.name} repository={repository} />
     ))}
   </div>
 )
 
-const Topic = ({ subjects }) => (
-  <Layout header={subjects.name}>
-    <List subjects={subjects} />
+const SubCategory = ({ subjects, name }) => (
+  <Layout header={name}>
+    <Section subcategory={subjects} />
   </Layout>
 )
 
-Topic.getInitialProps = async function(context) {
+SubCategory.getInitialProps = async function(context) {
   const { name, subcategory } = context.query
-  const res = await fetch(`http://localhost:3000/category.json/${name}`)
+
+  const res = await fetch(
+    `http://localhost:3000/subcategory.json/${name}/${subcategory}`
+  )
 
   const subjects = await res.json()
 
-  return { subjects }
+  return { subjects, name }
 }
 
-export default Topic
+export default SubCategory
