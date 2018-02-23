@@ -2,49 +2,7 @@ import Link from "next/link"
 import fetch from "isomorphic-unfetch"
 import Layout from "../components/Layout.js"
 import Card from "../components/Card.js"
-
-const formatDescr = str => {
-  if (str.length > 150) {
-    return str.substr(0, 130).concat("...")
-  } else {
-    return str
-  }
-}
-
-const sortByNPM = (a, b) => {
-  const aNPM = a.npm_download_since_last_month
-    ? a.npm_download_since_last_month
-    : 0
-  const bNPM = b.npm_download_since_last_month
-    ? b.npm_download_since_last_month
-    : 0
-
-  return bNPM - aNPM
-}
-
-const sortByGithub = (a, b) => {
-  return b["github_star"] - a["github_star"]
-}
-
-const sortByDefault = (a, b) => {
-  const aSortValue =
-    a.npm_download_since_last_month > a.github_star
-      ? a.npm_download_since_last_month
-      : a.github_star || 0
-
-  const bSortValue =
-    b.npm_download_since_last_month > b.github_star
-      ? b.npm_download_since_last_month
-      : b.github_star || 0
-
-  if (bSortValue > aSortValue) {
-    return 1
-  } else if (bSortValue < aSortValue) {
-    return -1
-  }
-
-  return 0
-}
+import { sortByDefault } from "../components/Utils/utils"
 
 const Section = ({ subcategory }) => {
   const sortedList = subcategory.repositories.map(repo => (
@@ -52,9 +10,7 @@ const Section = ({ subcategory }) => {
   ))
   return (
     <span id={subcategory.name}>
-      <a className="topic-header" href={`#${subcategory.name}`}>
-        {subcategory.name}
-      </a>
+      <div className="topic-header">{subcategory.name}</div>
       <div className="grid">{sortedList}</div>
       <style jsx>{`
         .grid {
@@ -79,14 +35,6 @@ const Section = ({ subcategory }) => {
     </span>
   )
 }
-
-const List = ({ subcategory }) => (
-  <div>
-    {subcategory.repositories.map(repository => (
-      <Section key={repository.name} repository={repository} />
-    ))}
-  </div>
-)
 
 const SubCategory = ({ subjects, name }) => (
   <Layout header={name}>

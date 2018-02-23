@@ -1,8 +1,8 @@
 import Head from "next/head"
 
-import MainNav from "./MainNav"
-import SortMenu from "./SortMenu"
+import SideMenu from "./SideMenu"
 import MainHeader from "./MainHeader"
+import MainNav from "./MainNav"
 
 const Layout = props => (
   <div>
@@ -15,7 +15,7 @@ const Layout = props => (
     </Head>
     <div className="wrapper">
       <MainNav />
-      <SortMenu topics={props.topics} />
+      <SideMenu />
       <div className="main">
         <MainHeader header={props.header} />
         {props.children}

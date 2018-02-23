@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link"
 
-const SubCategory = ({ category, subcategory }) => (
+const SubCategoryItem = ({ category, subcategory }) => (
   <li>
     <Link
       as={`/${category}/${subcategory.name}`}
@@ -27,4 +27,4 @@ const SubCategory = ({ category, subcategory }) => (
     `}</style>
   </li>
 )
-export default SubCategory
+export default SubCategoryItem

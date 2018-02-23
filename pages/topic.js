@@ -2,49 +2,7 @@ import Link from "next/link"
 import fetch from "isomorphic-unfetch"
 import Layout from "../components/Layout.js"
 import Card from "../components/Card.js"
-
-const formatDescr = str => {
-  if (str.length > 150) {
-    return str.substr(0, 130).concat("...")
-  } else {
-    return str
-  }
-}
-
-const sortByNPM = (a, b) => {
-  const aNPM = a.npm_download_since_last_month
-    ? a.npm_download_since_last_month
-    : 0
-  const bNPM = b.npm_download_since_last_month
-    ? b.npm_download_since_last_month
-    : 0
-
-  return bNPM - aNPM
-}
-
-const sortByGithub = (a, b) => {
-  return b["github_star"] - a["github_star"]
-}
-
-const sortByDefault = (a, b) => {
-  const aSortValue =
-    a.npm_download_since_last_month > a.github_star
-      ? a.npm_download_since_last_month
-      : a.github_star || 0
-
-  const bSortValue =
-    b.npm_download_since_last_month > b.github_star
-      ? b.npm_download_since_last_month
-      : b.github_star || 0
-
-  if (bSortValue > aSortValue) {
-    return 1
-  } else if (bSortValue < aSortValue) {
-    return -1
-  }
-
-  return 0
-}
+import { sortByDefault } from "../components/Utils/utils"
 
 const Section = ({ resource }) => {
   const sortedList = resource.repositories

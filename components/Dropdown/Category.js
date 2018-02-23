@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react"
 import Link from "next/link"
-import SubCategory from "./SubCategory"
+import SubCategoryItem from "./SubCategoryItem"
 import FaArrowDown from "react-icons/lib/fa/arrow-down"
 
 class Category extends Component {
@@ -14,7 +14,7 @@ class Category extends Component {
     const { open } = this.state
 
     return (
-      <React.Fragment>
+      <Fragment>
         <li
           onClick={() =>
             this.setState({
@@ -26,11 +26,17 @@ class Category extends Component {
         </li>
         {open ? (
           <Fragment>
-            <Link href={`/${category.name}`}>
+            <Link
+              as={`/${category.name}`}
+              href={`/topic?name=${category.name}`}
+            >
               <a>All</a>
             </Link>
             {category.subcategories.map(subcategory => (
-              <SubCategory category={category.name} subcategory={subcategory} />
+              <SubCategoryItem
+                category={category.name}
+                subcategory={subcategory}
+              />
             ))}
           </Fragment>
         ) : null}
@@ -46,7 +52,7 @@ class Category extends Component {
             font-size: 0.8rem;
           }
         `}</style>
-      </React.Fragment>
+      </Fragment>
     )
   }
 }
