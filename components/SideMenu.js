@@ -4,12 +4,12 @@ import SortMenu from "./SortMenu"
 
 const SideMenu = () => (
   <div className="sortNav">
-    <Dropdown categories={database.categories.map(x => x)} />
+    <Dropdown categories={database.categories} />
     <SortMenu />
     <style jsx>{`
       .sortNav {
         grid-row: 2;
-        grid-column: col-start / span 2;
+        grid-column: col-start / span 3;
         font-size: 1rem;
         font-weight: 300;
         top: 25px;

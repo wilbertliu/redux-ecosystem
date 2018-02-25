@@ -8,7 +8,7 @@ const formatString = str => {
 
 const PostLink = ({ category }) => (
   <div>
-    <Link as={`/${category}`} href={`/topic?name=${category}`}>
+    <Link as={`/${category}`} href={`/topic?category=${category}`}>
       <li>
         <a>{category}</a>
       </li>
@@ -46,9 +46,13 @@ const PostLink = ({ category }) => (
   </div>
 )
 
-const Index = ({ topics }) => (
+const Index = ({ categories }) => (
   <Layout>
-    <ul>{topics.map(category => <PostLink category={category} />)}</ul>
+    <ul>
+      {categories.map(category => (
+        <PostLink key={category} category={category} />
+      ))}
+    </ul>
     <style jsx>{`
       ul {
         padding: 0;
@@ -65,9 +69,9 @@ const Index = ({ topics }) => (
 
 Index.getInitialProps = async function() {
   const res = await fetch(`http://localhost:3000/topics.json`)
-  const topics = await res.json()
+  const categories = await res.json()
 
-  return { topics }
+  return { categories }
 }
 
 export default Index

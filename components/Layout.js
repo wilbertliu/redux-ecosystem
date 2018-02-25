@@ -35,17 +35,16 @@ const Layout = props => (
       .wrapper {
         height: 100%;
         display: grid;
-        grid-template-columns: repeat(12, [col-start] 1fr);
+        grid-template-columns: repeat(16, [col-start] 1fr);
         grid-gap: 10px;
       }
 
       .wrapper > * {
-        grid-column: col-start / span 12;
+        grid-column: col-start / span 16;
       }
 
       .main {
-        grid-column: col-start 3 / span 10;
-        margin: 0 10px 0 0;
+        grid-column: col-start 4 / span 13;
         grid-row: 2;
         padding: 5px 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);

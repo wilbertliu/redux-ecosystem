@@ -7,12 +7,6 @@ const MainNav = () => (
         <h2>Redux Ecosystem Links</h2>
       </a>
     </Link>
-    <Link href="/">
-      <a>Home</a>
-    </Link>
-    <Link href="/about">
-      <a>About</a>
-    </Link>
     <style jsx>{`
       a {
         text-decoration: none;

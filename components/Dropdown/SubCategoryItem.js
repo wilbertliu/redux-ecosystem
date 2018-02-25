@@ -5,7 +5,7 @@ const SubCategoryItem = ({ category, subcategory }) => (
   <li>
     <Link
       as={`/${category}/${subcategory.name}`}
-      href={`/subcategory?name=${category}&subcategory=${subcategory.name}`}
+      href={`/subcategory?category=${category}&subcategory=${subcategory.name}`}
     >
       <a>
         {subcategory.name} ({subcategory.repositories.length})
@@ -14,15 +14,16 @@ const SubCategoryItem = ({ category, subcategory }) => (
 
     <style jsx>{`
       li {
-        list-style-type: disk;
         display: flex;
         flex-direction: column;
+        padding: 2px 0;
       }
 
       a {
+        margin-left: 1.4rem;
         text-decoration: none;
         color: var(--redux);
-        font-size: 0.8rem;
+        font-size: 0.7rem;
       }
     `}</style>
   </li>

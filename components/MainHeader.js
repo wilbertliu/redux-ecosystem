@@ -5,7 +5,7 @@ import FaDownload from "react-icons/lib/fa/download"
 
 const MainHeader = ({ header }) => {
   return (
-    <ul className="sort-container">
+    <ul>
       <div className="header"> {header || "All Categories"} </div>
       <style jsx>{`
         ul {

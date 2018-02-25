@@ -5,18 +5,18 @@ const Dropdown = ({ categories }) => {
   return (
     <Fragment>
       <div>Categories:</div>
-      <ul>
+      <span>
         {categories.map(category => (
           <Category key={category.name} category={category} />
         ))}
-      </ul>
+      </span>
       <style jsx>{`
         div {
           margin: 0 auto;
           margin-left: 10px;
         }
 
-        ul {
+        span {
           margin: 10px auto;
           overflow: scroll;
         }
