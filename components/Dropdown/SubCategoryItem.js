@@ -23,7 +23,7 @@ const SubCategoryItem = ({ category, subcategory }) => (
         margin-left: 1.4rem;
         text-decoration: none;
         color: var(--redux);
-        font-size: 0.7rem;
+        font-size: 0.8rem;
       }
     `}</style>
   </li>

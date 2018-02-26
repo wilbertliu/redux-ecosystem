@@ -12,7 +12,12 @@ app
     const server = express()
 
     server.get("/topics.json", function(req, res) {
-      const categories = database.categories.map(topics => topics.name)
+      const categories = database.categories.map(topics => {
+        return {
+          name: topics.name,
+          subcategories: topics.subcategories.map(x => x.name)
+        }
+      })
 
       res.send(categories)
     })

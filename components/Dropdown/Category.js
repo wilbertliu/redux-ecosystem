@@ -58,57 +58,55 @@ class Category extends Component {
         ) : null}
         <style jsx>{`
           li {
-            font-size: 0.8rem;
-            padding: 2px 0;
+            font-size: 0.9rem;
+            padding: 3px 0;
             cursor: pointer;
+            list-style: none;
+            margin-left: 1rem;
           }
 
           a {
             margin-left: 1.4rem;
             text-decoration: none;
             color: var(--redux);
-            font-size: 0.7rem;
+            font-size: 0.8rem;
           }
 
           div {
             margin-top: 0px;
             -webkit-animation-name: list-enter;
-            -webkit-animation-duration: 0.2s;
+            -webkit-animation-duration: 0.3s;
             animation-name: list-enter;
-            animation-duration: 0.2s;
+            animation-duration: 0.3s;
           }
 
           @-webkit-keyframes list-enter {
             0% {
-              opacity: 1;
+              height: 0;
+            }
+            25% {
+              height: 25%;
             }
             50% {
-              opacity: 0.5;
+              height: 75%;
             }
-            100% {
-              opacity: 0;
+            75% {
+              opacity: 0.9;
             }
           }
 
           @keyframes list-enter {
             0% {
               height: 0;
-              visibility: hidden;
             }
             25% {
-              height: 1.5rem;
-              visibility: hidden;
+              height: 25%;
             }
             50% {
-              height: 2.5rem;
-              visibility: hidden;
+              height: 75%;
             }
             75% {
-              height: 3.5rem;
-              visibility: hidden;
-            }
-            100% {
-              opacity: 0.7;
+              height: 95%;
             }
           }
         `}</style>

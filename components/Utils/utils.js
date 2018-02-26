@@ -1,6 +1,6 @@
 export const formatDescr = str => {
-  if (str.length > 150) {
-    return str.substr(0, 130).concat("...")
+  if (str.length > 200) {
+    return str.substr(0, 200).concat("...")
   } else {
     return str
   }

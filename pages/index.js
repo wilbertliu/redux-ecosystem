@@ -1,3 +1,4 @@
+import { Fragment } from "react"
 import Layout from "../components/Layout"
 import Link from "next/link"
 import fetch from "isomorphic-unfetch"
@@ -7,12 +8,22 @@ const formatString = str => {
 }
 
 const PostLink = ({ category }) => (
-  <div>
-    <Link as={`/${category}`} href={`/topic?category=${category}`}>
-      <li>
-        <a>{category}</a>
-      </li>
-    </Link>
+  <Fragment>
+    <li>
+      <Link as={`/${category.name}`} href={`/topic?category=${category.name}`}>
+        <a>{category.name}</a>
+      </Link>
+      {category.subcategories.map(subcategory => (
+        <Link
+          as={`/${category.name}/${subcategory}`}
+          href={`/subcategory?category=${
+            category.name
+          }&subcategory=${subcategory}`}
+        >
+          <a className="sub-topic">{subcategory}</a>
+        </Link>
+      ))}
+    </li>
     <style jsx>{`
       li {
         margin: 5px 0;
@@ -43,18 +54,18 @@ const PostLink = ({ category }) => (
         color: black;
       }
     `}</style>
-  </div>
+  </Fragment>
 )
 
 const Index = ({ categories }) => (
   <Layout>
-    <ul>
+    <div>
       {categories.map(category => (
-        <PostLink key={category} category={category} />
+        <PostLink key={category.name} category={category} />
       ))}
-    </ul>
+    </div>
     <style jsx>{`
-      ul {
+      div {
         padding: 0;
         list-style: none;
       }
