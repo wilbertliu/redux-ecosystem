@@ -1,4 +1,5 @@
 const markdown = require('markdown').markdown
+const slug = require('slug')
 
 exports.parseMarkdown = text => {
   const ast = markdown.parse(text)
@@ -52,11 +53,17 @@ exports.parseMarkdown = text => {
       repos.push(currentRepos)
     }
   })
+  const categorySlug = slug(category.toLowerCase().replace(/\//g, ' '))
   return {
     name: category,
+    slug: categorySlug,
     subcategories: subcategories.map((subcategory, subcategoryIdx) => {
+      const subcategorySlug = slug(
+        subcategory.toLowerCase().replace(/\//g, ' ')
+      )
       return {
         name: subcategory,
+        slug: categorySlug + '/' + subcategorySlug,
         repositories: repos[subcategoryIdx].map(repo => {
           return { name: repo[0], github_url: repo[1], description: repo[2] }
         })
