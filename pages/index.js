@@ -3,24 +3,18 @@ import Layout from "../components/Layout"
 import Link from "next/link"
 import fetch from "isomorphic-unfetch"
 
-const formatString = str => {
-  return str.replace(/[\s+//]/g, "")
-}
-
 const PostLink = ({ category }) => (
   <Fragment>
     <li>
-      <Link as={`/${category.name}`} href={`/topic?category=${category.name}`}>
+      <Link as={`/${category.slug}`} href={`/topic?category=${category.slug}`}>
         <a>{category.name}</a>
       </Link>
       {category.subcategories.map(subcategory => (
         <Link
-          as={`/${category.name}/${subcategory}`}
-          href={`/subcategory?category=${
-            category.name
-          }&subcategory=${subcategory}`}
+          as={`/${subcategory.slug}`}
+          href={`/subcategory?slug=${subcategory.slug}`}
         >
-          <a className="sub-topic">{subcategory}</a>
+          <a className="sub-topic">{subcategory.name}</a>
         </Link>
       ))}
     </li>

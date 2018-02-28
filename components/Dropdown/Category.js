@@ -42,8 +42,8 @@ class Category extends Component {
         {open ? (
           <div>
             <Link
-              as={`/${category.name}`}
-              href={`/topic?category=${category.name}`}
+              as={`/${category.slug}`}
+              href={`/topic?category=${category.slug}`}
             >
               <a>All</a>
             </Link>

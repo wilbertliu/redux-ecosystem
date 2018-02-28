@@ -43,7 +43,7 @@ const GitHubStars = ({ stars }) => {
 const GitHubDate = ({ date }) => {
   return (
     <Fragment>
-      Updated: <span> {formatDate(date)}</span>
+      Updated: <span> {date}</span>
       <style jsx>{`
         span {
           color: black;
@@ -56,16 +56,15 @@ const GitHubDate = ({ date }) => {
 }
 
 const Card = ({ repo }) => {
-  const downloads = repo.npm_download_since_last_month ? (
+  const downloads = repo.npm_download_since_last_month && (
     <NpmComponent downloads={repo.npm_download_since_last_month} />
-  ) : null
+  )
 
-  const stars =
-    repo.github_star > 2 ? <GitHubStars stars={repo.github_star} /> : null
+  const stars = repo.github_star > 2 && <GitHubStars stars={repo.github_star} />
 
-  const githubDate = repo.github_last_update ? (
+  const githubDate = repo.github_last_update && (
     <GitHubDate date={repo.github_last_update} />
-  ) : null
+  )
 
   return (
     <div className="card-wrapper">

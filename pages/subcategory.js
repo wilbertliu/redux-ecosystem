@@ -3,22 +3,20 @@ import fetch from "isomorphic-unfetch"
 import Layout from "../components/Layout"
 import Section from "../components/Section"
 
-const SubCategory = ({ subjects, category }) => (
-  <Layout header={category}>
-    <Section resource={subjects} />
+const SubCategory = ({ subject }) => (
+  <Layout header={subject.categoryName}>
+    <Section resource={subject.subcategory} />
   </Layout>
 )
 
 SubCategory.getInitialProps = async function(context) {
-  const { category, subcategory } = context.query
+  const { slug } = context.query
 
-  const res = await fetch(
-    `http://localhost:3000/subcategory.json/${category}/${subcategory}`
-  )
+  const res = await fetch(`http://localhost:3000/subcategory.json/${slug}`)
 
-  const subjects = await res.json()
+  const subject = await res.json()
 
-  return { subjects, category }
+  return { subject }
 }
 
 export default SubCategory

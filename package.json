@@ -1,8 +1,7 @@
 {
   "name": "redux-ecosystem",
   "version": "1.0.0",
-  "description":
-    "The website of Redux-related addons, libraries, and utilities based on https://github.com/markerikson/redux-ecosystem-links",
+  "description": "The website of Redux-related addons, libraries, and utilities based on https://github.com/markerikson/redux-ecosystem-links",
   "main": "index.js",
   "repository": "git@github.com:wilbertliu/redux-ecosystem.git",
   "author": "Wilbert Liu <wilbertliu@gmail.com>",

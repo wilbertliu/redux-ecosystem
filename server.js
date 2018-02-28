@@ -12,10 +12,16 @@ app
     const server = express()
 
     server.get("/topics.json", function(req, res) {
-      const categories = database.categories.map(topics => {
+      const categories = database.categories.map(topic => {
         return {
-          name: topics.name,
-          subcategories: topics.subcategories.map(x => x.name)
+          name: topic.name,
+          slug: topic.slug,
+          subcategories: topic.subcategories.map(x => {
+            return {
+              name: x.name,
+              slug: x.slug
+            }
+          })
         }
       })
 
@@ -24,22 +30,24 @@ app
 
     server.get("/category.json/:category", function(req, res) {
       const category = database.categories.filter(
-        category => category.name == req.params.category
+        category => category.slug == req.params.category
       )
 
       res.send(category[0])
     })
 
     server.get("/subcategory.json/:category/:subcategory", function(req, res) {
+      const slug = `${req.params.category}/${req.params.subcategory}`
+
       const category = database.categories.filter(
-        category => category.name == req.params.category
+        category => category.slug == req.params.category
       )
 
       const subcategory = category[0].subcategories.filter(
-        subcategory => subcategory.name == req.params.subcategory
+        subcategory => subcategory.slug == slug
       )
 
-      res.send(subcategory[0])
+      res.send({ subcategory: subcategory[0], categoryName: category[0].name })
     })
 
     server.get("/:category", (req, res) => {
@@ -52,8 +60,7 @@ app
     server.get("/:category/:subcategory", (req, res) => {
       const actualPage = "/subcategory"
       const queryParams = {
-        category: req.params.category,
-        subcategory: req.params.subcategory
+        slug: `${req.params.category}/${req.params.subcategory}`
       }
 
       app.render(req, res, actualPage, queryParams)
