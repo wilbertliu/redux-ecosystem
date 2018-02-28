@@ -17,7 +17,8 @@
     "normalize-url": "^2.0.1",
     "ora": "^1.4.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "slug": "^0.9.1"
   },
   "devDependencies": {
     "react-icons": "^2.2.7",
