@@ -3,14 +3,7 @@ import Link from "next/link"
 import FaGithub from "react-icons/lib/fa/github"
 import FaStar from "react-icons/lib/fa/star"
 import FaDownload from "react-icons/lib/fa/download"
-
-const formatDescr = str => {
-  if (str.length > 140) {
-    return str.substr(0, 120).concat("...")
-  } else {
-    return str
-  }
-}
+import { formatDescription } from "./Utils/utils"
 
 const formatDate = date => {
   const formattedDate = date.split("T")
@@ -80,7 +73,7 @@ const Card = ({ repo }) => {
         <div className="card-header">{repo.name}</div>
         <div className="line-seperator" />
         <div className="card-description">
-          {repo.description ? formatDescr(repo.description) : ""}
+          {repo.description ? formatDescription(repo.description) : ""}
         </div>
         <div className="card-date">{githubDate}</div>
         <div className="card-stats">

@@ -1,4 +1,4 @@
-export const formatDescr = str => {
+export const formatDescription = str => {
   if (str.length > 200) {
     return str.substr(0, 200).concat("...")
   } else {
