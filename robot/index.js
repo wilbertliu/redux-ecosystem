@@ -96,7 +96,11 @@
 
             // Update JSON with additional metadata.
             repository.github_star = githubJSON.stargazers_count
-            repository.github_last_update = githubJSON.updated_at
+            if (githubJSON.updated_at !== undefined) {
+              repository.github_last_update = githubJSON.updated_at.split(
+                'T'
+              )[0]
+            }
             repository.npm_download_since_last_month = npmJSON.downloads
           })()
         })
