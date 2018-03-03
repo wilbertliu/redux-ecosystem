@@ -1,14 +1,14 @@
 import React from "react"
 import Link from "next/link"
 
-const SubCategoryItem = ({ category, subcategory }) => (
+const SubCategoryItem = ({ category, subcategory, repoCount }) => (
   <li>
     <Link
-      as={`${subcategory.slug}`}
+      as={`/${subcategory.slug}`}
       href={`/subcategory?slug=${subcategory.slug}`}
     >
       <a>
-        {subcategory.name} ({subcategory.repositories.length})
+        {subcategory.name} ({repoCount})
       </a>
     </Link>
 

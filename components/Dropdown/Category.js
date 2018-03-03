@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react"
 import Link from "next/link"
 import Router from "next/router"
-import SubCategoryItem from "./SubCategoryItem"
 import FaArrowDown from "react-icons/lib/fa/arrow-down"
+import SubCategoryItem from "./SubCategoryItem"
 
 class Category extends Component {
   constructor() {
@@ -11,17 +11,20 @@ class Category extends Component {
   }
 
   checkIfActive = () => {
-    const { category } = Router.query
+    const { slug, category } = Router.query
 
-    if (category == this.props.category.name) {
+    const slugInCategory = this.props.category.slug == category
+    const slugInSubcategory = this.props.category.subcategories.map(
+      cat => cat.slug.indexOf(slug) > -1
+    )
+
+    if (slugInCategory || slugInSubcategory.indexOf(true) == 0) {
       this.setState({ open: true })
     }
   }
 
   componentDidMount() {
-    this.props.category.name
-      ? this.checkIfActive()
-      : this.setState({ open: false })
+    this.checkIfActive()
   }
 
   render() {
@@ -52,6 +55,7 @@ class Category extends Component {
                 key={category.name}
                 category={category.name}
                 subcategory={subcategory}
+                repoCount={subcategory.repositories.length}
               />
             ))}
           </div>
