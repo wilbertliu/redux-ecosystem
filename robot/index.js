@@ -1,24 +1,24 @@
 ;(async function() {
-  const fetch = require('node-fetch')
-  const parser = require('./parser')
-  const fs = require('fs')
-  const githubAPIURL = 'https://api.github.com/'
+  const fetch = require("node-fetch")
+  const parser = require("./parser")
+  const fs = require("fs")
+  const githubAPIURL = "https://api.github.com/"
   const reduxLinksURL =
-    githubAPIURL + 'repos/markerikson/redux-ecosystem-links/contents'
-  const githubToken = '46d80ae8ba74c266fbd8ffd88e8ee5a4369928c4'
-  const path = require('path')
-  const databaseFile = path.join(__dirname, '../database.json')
-  const stats = require('download-stats')
+    githubAPIURL + "repos/markerikson/redux-ecosystem-links/contents"
+  const githubToken = "46d80ae8ba74c266fbd8ffd88e8ee5a4369928c4"
+  const path = require("path")
+  const databaseFile = path.join(__dirname, "../database.json")
+  const stats = require("download-stats")
   const githubRepoRegex = /^https:\/\/github.com\/[^\s]+\/[^\s]+$/
-  const normalizeUrl = require('normalize-url')
+  const normalizeUrl = require("normalize-url")
 
   // Fetch the target API.
-  console.log('Fetching', reduxLinksURL)
+  console.log("Fetching", reduxLinksURL)
   const result = await fetch(reduxLinksURL, {
-    headers: { Authorization: 'token ' + githubToken }
+    headers: { Authorization: "token " + githubToken }
   })
   const json = await result.json()
-  console.log('Got the JSON')
+  console.log("Got the JSON")
 
   // Download markdown files, parse the ast, and put to appropriate data structure.
   let jsonResult = { categories: [], last_update: new Date() }
@@ -26,21 +26,21 @@
     json.map(content => {
       return (async function() {
         if (
-          content.type === 'file' &&
-          content.name.split('.').pop() === 'md' &&
-          content.name !== 'README.md'
+          content.type === "file" &&
+          content.name.split(".").pop() === "md" &&
+          content.name !== "README.md"
         ) {
           // Download the markdown file.
-          console.log('Downloading', content.name)
+          console.log("Downloading", content.name)
           const result = await fetch(content.download_url)
           const text = await result.text()
-          console.log('Download', content.name, 'succeed')
+          console.log("Download", content.name, "succeed")
 
           // Parsing the markdown file.
-          console.log('Parsing', content.name)
+          console.log("Parsing", content.name)
           const parsedObject = parser.parseMarkdown(text)
           jsonResult.categories.push(parsedObject)
-          console.log('Parsing', content.name, 'succeed')
+          console.log("Parsing", content.name, "succeed")
         }
       })()
     })
@@ -64,35 +64,35 @@
               !githubRepoRegex.test(repository.github_url) ||
               repository.description === undefined
             ) {
-              console.log('Broken repository :', JSON.stringify(repository))
+              console.log("Broken repository :", JSON.stringify(repository))
               return
             }
 
             // Parse repo detail from its URL.
             const normalizedUrl = normalizeUrl(repository.github_url)
-            const splittedURL = normalizedUrl.split('/')
+            const splittedURL = normalizedUrl.split("/")
             const repoOwner = splittedURL[splittedURL.length - 2]
             const repoName = splittedURL[splittedURL.length - 1]
             const githubRepoURL =
-              githubAPIURL + 'repos/' + repoOwner + '/' + repoName
+              githubAPIURL + "repos/" + repoOwner + "/" + repoName
 
             // Get repo metadata from GitHub.
-            console.log('Getting GitHub metadata of', repoName)
+            console.log("Getting GitHub metadata of", repoName)
             const result = await fetch(githubRepoURL, {
-              headers: { Authorization: 'token ' + githubToken }
+              headers: { Authorization: "token " + githubToken }
             })
             const githubJSON = await result.json()
-            console.log('Got GitHub metadata of', repoName)
+            console.log("Got GitHub metadata of", repoName)
 
             // Get NPM downloads since last month.
-            console.log('Getting NPM metadata of', repoName)
+            console.log("Getting NPM metadata of", repoName)
             const npmJSON = await new Promise(resolve => {
               stats.get.lastMonth(repoName, function(err, result) {
                 if (err) return resolve({ downloads: 0 })
                 resolve(result)
               })
             })
-            console.log('Got NPM metadata of', repoName)
+            console.log("Got NPM metadata of", repoName)
 
             // Update JSON with additional metadata.
             repository.github_star = githubJSON.stargazers_count
@@ -119,9 +119,9 @@
   if (fs.existsSync(databaseFile)) {
     fs.truncateSync(databaseFile, 0)
   }
-  console.log('Saving JSON object to', databaseFile)
+  console.log("Saving JSON object to", databaseFile)
   fs.writeFileSync(databaseFile, jsonString)
-  console.log('Saving', databaseFile, 'succeed')
+  console.log("Saving", databaseFile, "succeed")
 
-  console.log('Robot has done its job')
+  console.log("Robot has done its job")
 })()
