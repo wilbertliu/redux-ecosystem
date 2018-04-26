@@ -7,21 +7,21 @@
   "author": "Wilbert Liu <wilbertliu@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "download-stats": "^0.3.2",
     "express": "^4.16.2",
     "isomorphic-unfetch": "^2.0.0",
-    "download-stats": "^0.3.2",
-    "markdown": "^0.5.0",
     "next": "^4.2.3",
     "node-fetch": "^1.7.3",
     "normalize-url": "^2.0.1",
     "ora": "^1.4.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "remark": "^9.0.0",
     "slug": "^0.9.1"
   },
   "devDependencies": {
-    "react-icons": "^2.2.7",
-    "prettier": "^1.10.2"
+    "prettier": "^1.10.2",
+    "react-icons": "^2.2.7"
   },
   "scripts": {
     "dev": "node server.js",
