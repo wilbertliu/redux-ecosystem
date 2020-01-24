@@ -1,8 +1,8 @@
-const markdown = require('markdown').markdown
+const remark = require('remark').remark
 const slug = require('slug')
 
 exports.parseMarkdown = text => {
-  const ast = markdown.parse(text)
+  const ast = remark.parse(text)
   let category = '',
     subcategories = [],
     repos = []

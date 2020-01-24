@@ -1,9 +1,11 @@
 const fetch = require("node-fetch")
 const fs = require("fs")
-const reduxLinksURL =
-  "https://api.github.com/repos/markerikson/redux-ecosystem-links/contents"
-const githubToken = "46d80ae8ba74c266fbd8ffd88e8ee5a4369928c4"
 const path = require("path")
+
+// The token must be the only text in the file, i.e. no newline
+const githubTokenBuffer = fs.readFileSync(path.resolve(__dirname, '../githubToken.txt'))
+const githubToken = Buffer.from(githubTokenBuffer).toString()
+
 const categoryContentErrorFile = path.join(
   __dirname,
   "../category-content-error.md"
@@ -11,6 +13,11 @@ const categoryContentErrorFile = path.join(
 const githubRepoRegex = /^https:\/\/github.com\/[^\s]+\/[^\s]+$/
 const ora = require("ora")
 const remark = require('remark')()
+
+const fetchJSON = async (uri) => fetch(uri, { headers: { Authorization: "token " + githubToken } }).then(r => r.json())
+
+// This is hardcoded for now because it would need to be fetched in an async function
+const reduxLinksURL = 'https://api.github.com/repos/markerikson/redux-ecosystem-links/git/trees/804e89f58ec3d828bdb3b1f3d977c41d803de428'
 
 function checkCategory(fileName, markdownText) {
   const ast = remark.parse(markdownText)
@@ -129,71 +136,6 @@ function checkCategory(fileName, markdownText) {
     }
   }
 
-  // const ast = markdown.parse(markdownText)
-  // let errors = []
-  //
-  // // Check strictly one <h3> allowed.
-  // const h3Tokens = ast.filter(
-  //   token => token[0] === "header" && token[1].level === 3
-  // )
-  // if (h3Tokens.length > 1) {
-  //   errors.push("`<h3>` appears more than once.")
-  // } else if (h3Tokens.length < 1) {
-  //   errors.push("`<h3>` does not exist.")
-  // }
-  //
-  // // Check every <h4> should be followed by list repos.
-  // ast.forEach((token, index) => {
-  //   if (token[0] === "header" && token[1].level === 4) {
-  //     if (
-  //       index + 1 === ast.length ||
-  //       (index + 1 < ast.length && ast[index + 1][0] !== "bulletlist")
-  //     ) {
-  //       errors.push("`<h4>` is not followed by repositories.")
-  //     } else {
-  //       const subcategory = token[2]
-  //
-  //       // Check every repository data.
-  //       const nextToken = ast[index + 1]
-  //       for (
-  //         let listTokenIdx = 1;
-  //         listTokenIdx < nextToken.length;
-  //         ++listTokenIdx
-  //       ) {
-  //         const listItemTokens = nextToken[listTokenIdx][1]
-  //
-  //         if (
-  //           listItemTokens.length !== 6 ||
-  //           typeof listItemTokens[1] !== "object" ||
-  //           listItemTokens[1].length !== 2 ||
-  //           listItemTokens[1][0] !== "strong" ||
-  //           typeof listItemTokens[2] !== "object" ||
-  //           listItemTokens[2][0] !== "linebreak" ||
-  //           typeof listItemTokens[3] !== "string" ||
-  //           !githubRepoRegex.test(listItemTokens[3]) ||
-  //           typeof listItemTokens[4] !== "object" ||
-  //           listItemTokens[4][0] !== "linebreak" ||
-  //           typeof listItemTokens[5] !== "string"
-  //         ) {
-  //           const repoName =
-  //             typeof listItemTokens[1] === "object" &&
-  //             listItemTokens[1].length === 2 &&
-  //             listItemTokens[1][0] === "strong"
-  //               ? listItemTokens[1][1]
-  //               : undefined
-  //           const errorMessage =
-  //             "Repository " +
-  //             (repoName === undefined ? "number " + listTokenIdx : repoName) +
-  //             " of subcategory " +
-  //             subcategory +
-  //             " has wrong structure. It should be : paragraph -> bold title string -> linebreak -> valid github repo url string -> linebreak -> description string."
-  //           errors.push(errorMessage)
-  //         }
-  //       }
-  //     }
-  //   }
-  // })
-  //
   if (errors.length === 0) {
     return {}
   }
@@ -203,31 +145,28 @@ function checkCategory(fileName, markdownText) {
 ;(async function() {
   // Fetch the target API.
   const fetchSpinner = new ora("Fetch " + reduxLinksURL).start()
-  const result = await fetch(reduxLinksURL, {
-    headers: { Authorization: "token " + githubToken }
-  })
-  const json = await result.json()
+  const json = await fetchJSON(reduxLinksURL)
   fetchSpinner.succeed()
 
   // Download markdown files, parse the ast, and put to appropriate data structure.
   let problems = []
   await Promise.all(
-    json.map(content => {
+    json.tree.map(content => {
       return (async function() {
         if (
-          content.type === "file" &&
-          content.name.split(".").pop() === "md" &&
-          content.name !== "README.md"
+          content.type === "blob" &&
+          content.path.split(".").pop() === "md" &&
+          content.path !== "README.md"
         ) {
           // Download the markdown file.
-          const downloadSpinner = new ora("Download " + content.name).start()
-          const result = await fetch(content.download_url)
-          const text = await result.text()
+          const downloadSpinner = new ora("Download " + content.path).start()
+          const encoded = (await fetchJSON(content.url)).content
+          const text = Buffer.from(encoded, 'base64').toString('ascii')
           downloadSpinner.succeed()
 
           // Check the markdown file.
-          const checkSpinner = new ora("Check " + content.name).start()
-          const report = checkCategory(content.name, text)
+          const checkSpinner = new ora("Check " + content.path).start()
+          const report = checkCategory(content.path, text)
           if (report.errors === undefined) {
             checkSpinner.succeed()
           } else {

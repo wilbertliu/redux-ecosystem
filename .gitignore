@@ -65,3 +65,4 @@ typings/
 # Project specific
 database.json
 category-content-error.md
+githubToken.txt
